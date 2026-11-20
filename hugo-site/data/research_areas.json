@@ -1,0 +1,13 @@
+{
+  "groups": [
+    {
+      "name": "Research Areas",
+      "areas": [
+        { "slug": "public-opinion", "title": "Public Opinion" },
+        { "slug": "campaigns-elections", "title": "American Campaigns and Elections" },
+        { "slug": "survey-methods", "title": "Survey Research Methods" },
+        { "slug": "religion-politics", "title": "Religion and Politics" }
+      ]
+    }
+  ]
+}

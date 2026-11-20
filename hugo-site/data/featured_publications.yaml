@@ -1,0 +1,4 @@
+# Items shown first under each research area on the homepage (slugs from content/publication/).
+# Areas not listed here show their most recent articles, books, and chapters.
+religion-politics: [seeking-promised-land, stained-glass-ceiling, religion-card]
+survey-methods: [online-polls-registration-based-sampling, response-latency-methodology-survey-research, political-norms-private-act-voting]

@@ -1,0 +1,12 @@
+# Quin Monson
+
+> J. Quin Monson is Professor of Political Science at Brigham Young University (Provo, Utah), a Senior Scholar with BYU's Center for the Study of Elections and Democracy, and a Religion Fellow at BYU's Wheatley Institute. His research covers public opinion, American campaigns and elections, survey research methods, and religion and politics. He is a co-author of Seeking the Promised Land: Mormons and American Politics (Cambridge University Press, 2014).
+
+## Pages
+- [Home](https://quinmonson.github.io/website/): short introduction and research areas
+- [Bio & C.V.](https://quinmonson.github.io/website/bio/)
+- [C.V. (PDF)](https://quinmonson.github.io/website/files/monson-cv.pdf)
+- [Research](https://quinmonson.github.io/website/publication/): articles, books, chapters, reports, and presentations
+- [Presentations](https://quinmonson.github.io/website/talk/)
+- [Media](https://quinmonson.github.io/website/media/): op-eds, blog posts, and public talks
+- [Contact](https://quinmonson.github.io/website/contact/)

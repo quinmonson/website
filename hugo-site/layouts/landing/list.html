@@ -1,0 +1,52 @@
+{{ define "main" }}
+{{- $o := site.Params.owner -}}
+{{- $photo := resources.GetMatch "media/bio-photo.*" -}}
+<section class="hero container-wide" aria-label="Introduction">
+  <div class="hero-photo">
+    {{- with $photo }}
+    {{- /* 1x-4x versions: browsers pick the sharpest one each screen (or zoom level) needs */ -}}
+    {{- $r1 := .Fill "200x250 Top webp q90" }}{{ $r2 := .Fill "400x500 Top webp q90" }}{{ $r3 := .Fill "600x750 Top webp q90" }}{{ $r4 := .Fill "800x1000 Top webp q90" }}
+    <img src="{{ $r2.RelPermalink }}" srcset="{{ $r1.RelPermalink }} 200w, {{ $r2.RelPermalink }} 400w, {{ $r3.RelPermalink }} 600w, {{ $r4.RelPermalink }} 800w" sizes="200px" width="200" height="250" alt="Portrait of {{ $o.short_name }}, {{ $o.institution }}">
+    {{- else }}
+    <div class="monogram" role="img" aria-label="{{ $o.short_name }}">{{ $o.initials }}</div>
+    {{- end }}
+  </div>
+  <div class="hero-text">
+    <h1>{{ $o.short_name }}</h1>
+    <p class="hero-role">{{ $o.title }}<br><a href="{{ $o.institution_url }}">{{ $o.institution }}</a></p>
+    <div class="hero-intro">{{ .Content }}</div>
+    <p class="hero-actions">
+      <a class="btn btn-primary" href="{{ "bio/" | relURL }}">{{ i18n "bio_cv" }}</a>
+      <a class="btn btn-primary" href="{{ "publication/" | relURL }}">{{ i18n "writings_research" }}</a>
+      <a class="btn btn-primary" href="{{ "media/" | relURL }}">{{ i18n "media" }}</a>
+      <a class="btn btn-primary" href="{{ "contact/" | relURL }}">{{ i18n "contact" }}</a>
+      <a class="btn btn-primary" href="{{ $o.cv | relURL }}">{{ i18n "download_cv" }}</a>
+      {{ with $o.scholar }}<a class="btn btn-primary" href="{{ . }}">{{ i18n "google_scholar" }}</a>{{ end }}
+    </p>
+  </div>
+</section>
+
+{{- /* Research areas: each area lists its featured items (data/featured_publications.yaml), else its newest publications. */ -}}
+{{- $pubs := where (where site.RegularPages "Section" "publication") "Params.publication_types" "intersect" (slice "journal_article" "book" "book_chapter") -}}
+<section id="research-areas" class="research-areas container-wide" aria-labelledby="ra-head">
+  <h2 id="ra-head">Research Areas</h2>
+  <div class="ra-grid">
+  {{- range site.Data.research_areas.groups }}{{ range .areas }}
+    {{- $slug := .slug -}}
+    {{- $items := slice -}}
+    {{- with index (site.Data.featured_publications | default dict) $slug }}{{ range . }}{{ with site.GetPage (printf "/publication/%s" .) }}{{ $items = $items | append . }}{{ end }}{{ end }}{{ end -}}
+    {{- if not $items }}{{ $items = first 3 (where $pubs "Params.research_areas" "intersect" (slice $slug)).ByDate.Reverse }}{{ end -}}
+    <div class="ra-card">
+      <h3><a href="{{ "publication/" | relURL }}#all&area={{ $slug }}">{{ .title }}</a></h3>
+      {{ with .blurb }}<p class="ra-blurb">{{ . }}</p>{{ end }}
+      <ul>
+        {{- range first 3 $items }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> <span class="ra-year">({{ with .Params.status }}{{ . }}{{ else }}{{ .Date.Year }}{{ end }})</span></li>
+        {{- end }}
+      </ul>
+      <p class="ra-more"><a href="{{ "publication/" | relURL }}#all&area={{ $slug }}">All work in this area</a></p>
+    </div>
+  {{- end }}{{ end }}
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,15 @@
+{{/* Returns the i18n kind key for a writings page. Checks publication_types BEFORE section. */}}
+{{- $t := .Params.publication_types | default slice -}}
+{{- $k := "kind_paper" -}}
+{{- if in $t "data" }}{{ $k = "kind_dataset" }}
+{{- else if in $t "book_review" }}{{ $k = "kind_review" }}
+{{- else if in $t "essay" }}{{ $k = "kind_essay" }}
+{{- else if or (in $t "book") (in $t "edited_book") }}{{ $k = "kind_book" }}
+{{- else if in $t "book_chapter" }}{{ $k = "kind_chapter" }}
+{{- else if in $t "report" }}{{ $k = "kind_report" }}
+{{- else if in $t "working_paper" }}{{ $k = "kind_working" }}
+{{- else if in $t "software" }}{{ $k = "kind_software" }}
+{{- else if or (in $t "presentation") (eq .Section "talk") }}{{ $k = "kind_presentation" }}
+{{- else if eq .Section "software" }}{{ $k = "kind_software" }}
+{{- end -}}
+{{- return $k -}}

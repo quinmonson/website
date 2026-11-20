@@ -1,0 +1,3 @@
+# Short URLs. Each entry makes https://<site>/<from>/ redirect to <to>.
+- from: cv
+  to: files/monson-cv.pdf
